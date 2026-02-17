@@ -1,24 +1,24 @@
-# Use a supported OpenJDK image
-FROM eclipse-temurin:20-jdk-focal
+# Use Temurin OpenJDK 17 slim as base image
+FROM eclipse-temurin:17-jdk-focal
 
 # Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml first (leverage Docker cache)
+# Copy Maven wrapper and pom.xml
 COPY mvnw .
 COPY pom.xml .
 COPY .mvn .mvn
 
-# Make Maven wrapper executable
-RUN chmod +x mvnw
-
 # Copy source code
 COPY src ./src
 
-# Build Spring Boot app and skip tests
+# Make Maven wrapper executable
+RUN chmod +x mvnw
+
+# Build the Spring Boot app
 RUN ./mvnw clean package -DskipTests
 
-# Expose Spring Boot default port
+# Expose default Spring Boot port
 EXPOSE 8080
 
 # Run the generated jar
