@@ -1,0 +1,12 @@
+target/
+*.log
+
+# Spring config
+application-local.properties
+application-dev.properties
+application-prod.properties
+
+# IDE
+.idea/
+.vscode/
+*.iml
